@@ -97,4 +97,28 @@ behaviorSubj.subscribe(
 */
 
 
+// AsyncSubject
+// AsyncSubject emits value only after the stream is .complete(), and will emit the last value
+let asyncSubj = new AsyncSubject(1);
+asyncSubj.subscribe(
+  val => console.log('first next:', val),
+  err => console.log('first was error:', err),
+  () => console.log('first complete')
+);
 
+asyncSubj.next( 1 );
+asyncSubj.next( 2 );
+asyncSubj.complete();
+
+asyncSubj.subscribe(
+  val => console.log('second next:', val),
+  err => console.log('second was error:', err),
+  () => console.log('second complete')
+);
+
+/*  output:
+    first next: 2
+    first complete
+    second next: 2
+    second complete
+*/

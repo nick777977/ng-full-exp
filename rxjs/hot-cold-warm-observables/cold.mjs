@@ -1,12 +1,13 @@
+import { ReplaySubject, Subject, BehaviorSubject, AsyncSubject } from 'rxjs';
+
+
+// START
 /*  Hot & Cold Observables
+    Video name -> Angular - RxJS 6 - Hot & Cold - RS School
     Tutorial link -> https://www.youtube.com/watch?v=88grqF9ZSjU&ab_channel=AntonBely
 */
 
-
-import { ReplaySubject, Subject, BehaviorSubject, AsyncSubject } from 'rxjs';
-
 // regular Subject
-
 let subj = new Subject();
 subj.subscribe(
   (val) => console.log('first next:', val),
@@ -121,4 +122,10 @@ asyncSubj.subscribe(
     first complete
     second next: 2
     second complete
+*/
+
+// END
+/*  Hot & Cold Observables
+    Video name -> Angular - RxJS 6 - Hot & Cold - RS School
+    Tutorial link -> https://www.youtube.com/watch?v=88grqF9ZSjU&ab_channel=AntonBely
 */

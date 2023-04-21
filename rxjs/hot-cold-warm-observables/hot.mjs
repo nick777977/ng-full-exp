@@ -1,4 +1,4 @@
-import { multicast, of, defer, Subject, publish } from "rxjs";
+import { multicast, of, defer, Subject, publish, share } from "rxjs";
 
 
 // Make hot using multicast() and connect() / .refCount()
@@ -74,4 +74,22 @@ hot4.connect();
     2: 83
 */
 
+
+
+// Make hot using share()
+// .multicast(() => new Subject())).refCount() === share()
+console.log('5--------------------');
+let random5 = () => Math.floor(Math.random() * 100);
+
+let cold5 = defer(() => of(random5()));
+let hot5 = cold5.pipe(share());
+
+hot5.subscribe((x) => console.log("1:", x));
+hot5.subscribe((x) => console.log("2:", x));
+
+
+/*  output:
+    1: 63
+    2: 20
+*/
 

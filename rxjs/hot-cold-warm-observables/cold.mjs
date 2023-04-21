@@ -3,9 +3,10 @@
 */
 
 
-import { ReplaySubject, Subject } from 'rxjs';
+import { ReplaySubject, Subject, BehaviorSubject, AsyncSubject } from 'rxjs';
 
 // regular Subject
+
 let subj = new Subject();
 subj.subscribe(
   (val) => console.log('first next:', val),
@@ -48,10 +49,52 @@ replaySubj.subscribe(
 );
 
 
-/* output:
+/*  output:
     first next: 85
     first next: 77
     first complete
     second next: 77
     second complete
  */
+
+
+// BehaviorSubject
+// BehaviorSubject constructor can receive the initial value for stream. Before any .next() first subscribers will see this initial value
+// Before complete all new subscribers will receive the last emitted value.
+// After .complete() no values will be emitted to new subs
+
+let behaviorSubj = new BehaviorSubject('initial value');
+behaviorSubj.subscribe(
+  val => console.log('first next:', val),
+  err => console.log('first was error:', err),
+  () => console.log('first complete')
+);
+
+behaviorSubj.next( Math.floor((Math.random() * 100)) );
+
+behaviorSubj.subscribe(
+  val => console.log('second next:', val),
+  err => console.log('second was error:', err),
+  () => console.log('second complete')
+);
+
+behaviorSubj.complete();
+
+behaviorSubj.subscribe(
+  val => console.log('third next:', val),
+  err => console.log('third was error:', err),
+  () => console.log('third complete')
+);
+
+
+/*  output:
+    first next: initial value
+    first next: 30
+    second next: 30
+    first complete
+    second complete
+    third complete
+*/
+
+
+
